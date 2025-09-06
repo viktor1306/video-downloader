@@ -1,0 +1,15 @@
+/* src/styles/_base.scss */
+
+@use 'variables' as *;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  // Використовуємо CSS-змінні
+  background-color: var(--primary-bg-color);
+  font-family: $primary-font;
+  color: var(--primary-text-color);
+  // Плавний перехід кольору при зміні теми
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
