@@ -5,3 +5,35 @@
   color: var(--primary-text-color);
   font-size: 14px;
 }
+
+// src/app/components/header/header.component.scss
+
+.theme-toggle-button {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-text-color);
+  // ЗМІНА 1: Додаємо плавний перехід
+  transition: all 0.2s ease-in-out;
+
+  @include mix.neumorphism-outset(50%, 4px);
+
+  // ЗМІНА 2: Додаємо новий блок :hover
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 12px var(--dark-shadow-color),
+                -6px -6px 12px var(--light-shadow-color);
+  }
+
+  &:active {
+    // ЗМІНА 3: Додаємо зсув при натисканні
+    transform: translateY(1px);
+    @include mix.neumorphism-inset(50%, 4px);
+  }
+}

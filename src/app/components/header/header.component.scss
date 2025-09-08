@@ -25,3 +25,32 @@
     @include mix.neumorphism-inset(10px, 4px);
   }
 }
+
+.theme-toggle-button {
+  // Робимо кнопку круглою
+  width: 45px;
+  height: 45px;
+  padding: 0; // Прибираємо внутрішні відступи
+  border-radius: 50%; // Робимо її ідеально круглою
+
+  // Центруємо іконку всередині
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  cursor: pointer;
+  color: var(--primary-text-color); // Колір буде успадковуватися іконкою
+
+  @include mix.neumorphism-outset(50%, 4px); // Радіус 50% для кола
+
+  &:active {
+    @include mix.neumorphism-inset(50%, 4px);
+  }
+}
+
+.theme-icon {
+  // Розмір самої іконки
+  width: 24px;
+  height: 24px;
+}

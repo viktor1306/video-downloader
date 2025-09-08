@@ -9,7 +9,7 @@ import { ThemeService } from '../../services/theme.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  constructor(private themeService: ThemeService) {}
+  constructor(public themeService: ThemeService) {}
 
   toggleTheme(): void {
     this.themeService.toggleTheme();

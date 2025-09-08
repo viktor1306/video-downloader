@@ -25,18 +25,31 @@
   @include mix.neumorphism-inset(15px, 6px);
 }
 
+
 .download-button {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  // ВИПРАВЛЕНО: Використовуємо CSS-змінну
   color: var(--primary-text-color);
+  // ЗМІНА 1: Додаємо плавний перехід для ефектів
   transition: all 0.2s ease-in-out;
+
   @include mix.neumorphism-outset(15px, 6px);
 
+  // ЗМІНА 2: Додаємо новий блок :hover
+  &:hover {
+    // Злегка піднімаємо кнопку
+    transform: translateY(-2px);
+    // Робимо тіні трохи сильнішими, щоб посилити ефект
+    box-shadow: 8px 8px 16px var(--dark-shadow-color),
+                -8px -8px 16px var(--light-shadow-color);
+  }
+
   &:active {
+    // ЗМІНА 3: Додаємо легкий зсув вниз для імітації натискання
+    transform: translateY(1px);
     @include mix.neumorphism-inset(15px, 6px);
   }
 }
