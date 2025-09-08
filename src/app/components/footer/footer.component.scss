@@ -1,40 +1,31 @@
+// По-перше, імпортуємо наші міксини
 @use 'mixins' as mix;
+
 .site-footer {
-  width: 100%;
-  padding: 20px 0;
+  // Позиціонуємо футер аналогічно до хедера
+  position: fixed;
+  bottom: 20px;
+  left: 40px;
+  right: 40px;
+
+  padding: 15px 30px;
   text-align: center;
   color: var(--primary-text-color);
   font-size: 14px;
+  z-index: 10;
+
+  // Застосовуємо ефект скла
+  @include mix.glassmorphism-panel();
 }
 
-// src/app/components/header/header.component.scss
+// ... існуючі стилі ...
 
-.theme-toggle-button {
-  width: 45px;
-  height: 45px;
-  padding: 0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  color: var(--primary-text-color);
-  // ЗМІНА 1: Додаємо плавний перехід
-  transition: all 0.2s ease-in-out;
-
-  @include mix.neumorphism-outset(50%, 4px);
-
-  // ЗМІНА 2: Додаємо новий блок :hover
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 6px 6px 12px var(--dark-shadow-color),
-                -6px -6px 12px var(--light-shadow-color);
-  }
-
-  &:active {
-    // ЗМІНА 3: Додаємо зсув при натисканні
-    transform: translateY(1px);
-    @include mix.neumorphism-inset(50%, 4px);
+@media (max-width: 768px) {
+  .site-footer {
+    // Зменшуємо відступи для мобільних пристроїв
+    bottom: 10px;
+    left: 15px;
+    right: 15px;
+    padding: 10px 20px;
   }
 }

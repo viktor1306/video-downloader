@@ -2,6 +2,12 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh; // Дуже важливо: контейнер займає мінімум 100% висоти екрана
+
+    // --- ДОДАЄМО ЦІ ВЛАСТИВОСТІ ---
+  background-size: cover;          // 1. Масштабувати, щоб покрити весь екран
+  background-position: center center; // 2. Центрувати зображення
+  background-repeat: no-repeat;    // 3. Не повторювати
+  background-attachment: fixed;    // 4. !! Дуже важливо: фон залишається на місці при скролі
 }
 
 .main-content {
@@ -9,4 +15,18 @@
   display: flex;
   align-items: center; // Центруємо контент по вертикалі
   justify-content: center; // І по горизонталі
+  padding-top: 120px; // Відступ для хедера
+  padding-bottom: 100px; // Відступ для футера
+  backdrop-filter: blur(10px); // Легке розмиття фону під контентом
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    // Додаємо невеликі відступи по боках
+    padding-left: 15px;
+    padding-right: 15px;
+    // Зменшуємо вертикальні відступи
+    padding-top: 100px;
+    padding-bottom: 80px;
+  }
 }

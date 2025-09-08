@@ -1,30 +1,110 @@
 @use 'mixins' as mix;
 
-.downloader-container {
+.downloader-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px;
-  min-height: 200px;
+  gap: 30px;
+}
+
+.results-container{
   width: 500px;
-  margin: 100px auto;
-  @include mix.neumorphism-outset(20px, 8px);
+  padding: 30px 40px;
+  color: var(--primary-text-color);
+  text-align: center;
+  @include mix.glassmorphism-panel(); // <- ЗАСТОСОВУЄМО НОВИЙ СТИЛЬ
+}
+
+.info-container {
+  width: 500px;
+  padding: 30px 40px;
+  color: var(--primary-text-color);
+  text-align: center; // Залишаємо центрування для заголовків
+  @include mix.glassmorphism-panel();
+  overflow: hidden; // Це вирішить проблему "зависаючого" тексту
+  h2 {
+    margin-top: 0;
+  }
+}
+
+
+.steps-list {
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 25px;
+
+  // ЗМІНА 1: Прибираємо маркери (цифри)
+  list-style-type: none;
+
+  // ЗМІНА 2: Прибираємо відступ, який був потрібен для цифр
+  padding-left: 0;
+
+  li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+
+    // ЗМІНА 3: Прибираємо зайвий відступ, він більше не потрібен
+    padding-left: 0;
+  }
+}
+
+.supported-platforms {
+  margin-top: 20px;
+  border-top: 1px solid var(--glass-border-color);
+  padding-top: 20px;
+
+  p {
+    margin: 0 0 15px 0;
+    font-weight: bold;
+  }
+
+  // Новий блок для платформ
+  .platforms-container {
+    display: flex; // Використовуємо Flexbox
+    justify-content: center; // Центруємо
+    gap: 20px; // Встановлюємо проміжок між елементами
+  }
+
+  span {
+    font-size: 14px;
+    opacity: 0.8;
+  }
 }
 
 .url-input {
-  width: 80%;
-  padding: 15px;
-  border: none;
+  width: 100%;
+  box-sizing: border-box; // Важливо для правильного розрахунку розміру
+  padding: 15px 20px;
+  margin-bottom: 25px;
+
+  // 1. Новий фон для поля вводу
+  background: var(--input-bg-color);
+
+  // 2. Повертаємо рамку, але робимо її ледь помітною
+  border: 1px solid var(--glass-border-color);
+  border-radius: 15px; // Скруглення кутів
+
+  // 3. Тінь всередині для створення глибини ("втиснутий" ефект)
+  box-shadow: inset 0px 2px 4px rgba(0,0,0,0.05);
+
+  // 4. Загальні стилі
   outline: none;
   font-size: 16px;
-  margin-bottom: 25px;
-  // ВИПРАВЛЕНО: Використовуємо правильний синтаксис CSS-змінних
-  background: var(--primary-bg-color);
   color: var(--primary-text-color);
-  @include mix.neumorphism-inset(15px, 6px);
-}
+  transition: all 0.2s ease-in-out; // Анімація для фокусу
 
+  &::placeholder {
+    color: var(--primary-text-color);
+    opacity: 0.7;
+  }
+
+  // 5. Ефект при фокусуванні - найважливіше для UX!
+  &:focus {
+    border-color: rgba(255, 255, 255, 0.5); // Робимо рамку яскравішою
+    // Додаємо легке зовнішнє світіння, щоб виділити поле
+    box-shadow: inset 0px 2px 4px rgba(0,0,0,0.05), 0 0 0 2px rgba(255, 255, 255, 0.1);
+  }
+}
 
 .download-button {
   padding: 15px 30px;
@@ -33,84 +113,74 @@
   font-size: 16px;
   font-weight: bold;
   color: var(--primary-text-color);
-  // ЗМІНА 1: Додаємо плавний перехід для ефектів
+  transition: background 0.2s ease-in-out;
+  @include mix.glassmorphism-panel(15px); // <- ЗАСТОСОВУЄМО НОВИЙ СТИЛЬ
+
+  &:hover {
+    background: var(--button-hover-bg); // Ефект при наведенні
+  }
+}
+
+.downloader-container {
+  // ВАЖЛИВО: додаємо це, щоб кнопка позиціонувалася відносно цього блоку
+  position: relative;
+  width: 500px;
+  padding: 30px 40px;
+  color: var(--primary-text-color);
+  text-align: center;
+  @include mix.glassmorphism-panel();
+}
+
+// НОВІ СТИЛІ ДЛЯ КНОПКИ "ІНФО"
+.info-toggle-button {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  opacity: 0.5; // Робимо її малопомітною
   transition: all 0.2s ease-in-out;
 
-  @include mix.neumorphism-outset(15px, 6px);
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 
-  // ЗМІНА 2: Додаємо новий блок :hover
   &:hover {
-    // Злегка піднімаємо кнопку
-    transform: translateY(-2px);
-    // Робимо тіні трохи сильнішими, щоб посилити ефект
-    box-shadow: 8px 8px 16px var(--dark-shadow-color),
-                -8px -8px 16px var(--light-shadow-color);
-  }
-
-  &:active {
-    // ЗМІНА 3: Додаємо легкий зсув вниз для імітації натискання
-    transform: translateY(1px);
-    @include mix.neumorphism-inset(15px, 6px);
+    opacity: 1; // Стає видимою при наведенні
+    background: var(--button-hover-bg);
   }
 }
 
-.downloader-wrapper {
-  // Цей контейнер просто центрує все
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px; // Відстань між формою і блоком результатів
-}
+// ... існуючі стилі ...
 
-.results-container {
-  width: 500px; // Така ж ширина, як у форми
-  padding: 20px 40px;
-  text-align: center;
-  color: var(--primary-text-color);
-
-  // Застосовуємо той самий стиль, що і для форми
-  @include mix.neumorphism-outset(20px, 8px);
-}
-
-.info-container {
-  width: 500px;
-  padding: 20px 40px;
-  color: var(--primary-text-color);
-  text-align: center;
-
-  // Застосовуємо наш фірмовий стиль
-  @include mix.neumorphism-outset(20px, 8px);
-
-  h2 {
-    margin-top: 0;
-  }
-}
-
-.steps-list {
-  list-style: none;
-  padding: 0;
-  text-align: left;
-  margin: 20px 0;
-
-  li {
-    margin-bottom: 10px;
-    line-height: 1.5;
-  }
-}
-
-.supported-platforms {
-  margin-top: 20px;
-  border-top: 1px solid var(--dark-shadow-color);
-  padding-top: 20px;
-
-  p {
-    margin: 0 0 15px 0;
-    font-weight: bold;
+@media (max-width: 768px) {
+  // Застосовуємо ці стилі до всіх наших головних панелей
+  .downloader-container,
+  .results-container,
+  .info-container {
+    // Головна зміна: прибираємо фіксовану ширину
+    width: 100%; // Тепер панель займе всю доступну ширину (з урахуванням padding у .main-content)
+    padding: 25px 20px; // Зменшуємо внутрішні відступи
   }
 
-  span {
-    margin: 0 10px;
+  // Трохи зменшуємо текст інструкції
+  .steps-list {
     font-size: 14px;
-    opacity: 0.8;
+  }
+
+  // Зменшуємо відступи у блоці "Підтримувані платформи"
+  .supported-platforms {
+    margin-top: 15px;
+    padding-top: 15px;
   }
 }

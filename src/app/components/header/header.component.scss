@@ -1,10 +1,23 @@
 @use 'mixins' as mix;
 
 .site-header {
+  // --- ОСНОВНІ ВИПРАВЛЕННЯ ---
+
+  // 1. Повертаємо Flexbox для вирівнювання
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
+  justify-content: space-between; // Розносимо елементи по краях
+  align-items: center;           // Вирівнюємо по центру по вертикалі
+
+  // 2. Правильно позиціонуємо "плаваючий" блок
+  position: fixed; // 'fixed' краще за 'absolute' для хедера, він не рухається при скролі
+  top: 20px;       // Відступ зверху
+  left: 40px;      // Відступ зліва
+  right: 40px;     // Відступ справа
+  // width більше не потрібна, браузер розрахує її сам!
+
+  padding: 20px 30px; // Можна трохи зменшити бічні паддінги
+  z-index: 10;
+  @include mix.glassmorphism-panel();
 }
 
 .site-title {
@@ -13,44 +26,101 @@
   color: var(--primary-text-color);
 }
 
-.theme-toggle-button {
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: var(--primary-text-color);
-  @include mix.neumorphism-outset(10px, 4px);
+@media (max-width: 768px) {
+  .site-header {
+    // Зменшуємо відступи для мобільних пристроїв
+    top: 10px;
+    left: 15px;
+    right: 15px;
+    padding: 15px 20px;
+  }
 
-  &:active {
-    @include mix.neumorphism-inset(10px, 4px);
+  .site-title {
+    // Можна трохи зменшити шрифт заголовка
+    font-size: 20px;
   }
 }
 
-.theme-toggle-button {
-  // Робимо кнопку круглою
+// ...
+
+// Обгортка для кнопок, щоб вони були разом
+.controls-wrapper {
+  display: flex;
+  gap: 15px;
+}
+
+.control-button {
+  // 1. Розміри та форма
   width: 45px;
   height: 45px;
-  padding: 0; // Прибираємо внутрішні відступи
-  border-radius: 50%; // Робимо її ідеально круглою
+  padding: 0;
+  border-radius: 50%; // Робимо кнопку круглою
 
-  // Центруємо іконку всередині
+  // 2. Вирівнювання іконки всередині
   display: flex;
   align-items: center;
   justify-content: center;
 
+  // 3. Загальні стилі
   border: none;
   cursor: pointer;
-  color: var(--primary-text-color); // Колір буде успадковуватися іконкою
+  color: var(--primary-text-color); // Колір тексту/іконки
+  transition: background 0.2s ease-in-out;
 
-  @include mix.neumorphism-outset(50%, 4px); // Радіус 50% для кола
+  // 4. Ефект скла
+  @include mix.glassmorphism-panel(50%);
 
-  &:active {
-    @include mix.neumorphism-inset(50%, 4px);
+  // 5. Ефект при наведенні
+  &:hover {
+    background: var(--button-hover-bg);
+  }
+
+  // 6. Розмір самої іконки
+  svg {
+    width: 24px;
+    height: 24px;
   }
 }
 
-.theme-icon {
-  // Розмір самої іконки
-  width: 24px;
-  height: 24px;
+// Стилі для нової панелі
+.bg-input-panel {
+  position: absolute;
+  top: calc(100% + 10px); // З'являється під хедером
+  right: 0;
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  @include mix.glassmorphism-panel();
+
+}
+
+// Оновлюємо стилі для панелі
+.bg-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  @include mix.glassmorphism-panel();
+
+  // Ховаємо стандартний, некрасивий input[type=file]
+  input[type="file"] {
+    display: none;
+  }
+
+  // Стилізуємо наші кнопки
+  .panel-button {
+    background: var(--input-bg-color);
+    border: 1px solid var(--glass-border-color);
+    color: var(--primary-text-color);
+    border-radius: 10px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: var(--button-hover-bg);
+    }
+  }
 }

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { DownloaderFormComponent } from './components/downloader-form/downloader-form.component';
 import { HeaderComponent } from './components/header/header.component'; // <-- Імпортуємо
 import { FooterComponent } from './components/footer/footer.component'; // <-- Імпортуємо
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,6 @@ import { FooterComponent } from './components/footer/footer.component'; // <-- �
 })
 export class AppComponent {
   title = 'video-downloader';
+  // Робимо сервіс публічним
+  constructor(public themeService: ThemeService) {}
 }

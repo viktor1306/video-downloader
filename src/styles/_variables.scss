@@ -1,21 +1,27 @@
 /* src/styles/_variables.scss */
 
-// Змінні, що не залежать від теми (шрифти, геометрія)
+// Змінні, що не залежать від теми
 $primary-font: 'Arial', sans-serif;
 
 // CSS-змінні для тем
 :root {
   // --- Світла тема ---
-  --primary-bg-color: #e0e5ec;
-  --primary-text-color: #5b6779;
-  --light-shadow-color: #ffffff;
-  --dark-shadow-color: #a3b1c6;
+  --glass-bg-color: rgba(255, 255, 255, 0.1);
+  --glass-border-color: rgba(255, 255, 255, 0.2);
+  --primary-text-color: #000000;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --button-hover-bg: rgba(255, 255, 255, 0.15);
+  // НОВА ЗМІННА
+  --input-bg-color: rgba(255, 255, 255, 0.1);
 }
 
 body.dark-theme {
   // --- Темна тема ---
-  --primary-bg-color: #2c2c2c;
-  --primary-text-color: #b0b0b0;
-  --light-shadow-color: #3a3a3a;
-  --dark-shadow-color: #1c1c1c;
+  --glass-bg-color: rgba(0, 0, 0, 0.1);
+  --glass-border-color: rgba(255, 255, 255, 0.1);
+  --primary-text-color: #f0f0f0;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --button-hover-bg: rgba(0, 0, 0, 0.15);
+  // НОВА ЗМІННА
+  --input-bg-color: rgba(0, 0, 0, 0.1);
 }

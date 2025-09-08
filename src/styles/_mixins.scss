@@ -1,17 +1,13 @@
 /* src/styles/_mixins.scss */
 
-@mixin neumorphism-outset($radius: 12px, $distance: 5px) {
-  border-radius: $radius;
-  background: var(--primary-bg-color);
-  box-shadow: $distance $distance ($distance * 2) var(--dark-shadow-color),
-              (-$distance) (-$distance) ($distance * 2) var(--light-shadow-color);
-  transition: box-shadow 0.3s ease, background-color 0.3s ease;
-}
+@mixin glassmorphism-panel($radius: 20px) {
+  // Головний ефект "матового скла"
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); // Для підтримки Safari
 
-@mixin neumorphism-inset($radius: 12px, $distance: 5px) {
+  background: var(--glass-bg-color);
   border-radius: $radius;
-  background: var(--primary-bg-color);
-  box-shadow: inset $distance $distance ($distance * 2) var(--dark-shadow-color),
-              inset (-$distance) (-$distance) ($distance * 2) var(--light-shadow-color);
-  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  border: 1px solid var(--glass-border-color);
+  box-shadow: 0 8px 32px 0 var(--shadow-color);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }

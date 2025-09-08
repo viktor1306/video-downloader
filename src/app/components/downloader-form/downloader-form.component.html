@@ -1,37 +1,41 @@
 <div class="downloader-wrapper">
-  <!-- Форма введення залишається без змін -->
   <div class="downloader-container">
-    <input
-      class="url-input"
-      type="text"
-      placeholder="Вставте посилання на відео..."
-      [(ngModel)]="videoUrl"
-    >
+    <!-- НОВА КНОПКА "ІНФО" -->
+    <button class="info-toggle-button" (click)="toggleInfoPanel()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>
+    </button>
+
+    <input class="url-input" type="text" placeholder="Вставте посилання на відео..." [(ngModel)]="videoUrl">
     <button class="download-button" (click)="onDownloadClick()">Завантажити</button>
   </div>
 
-  <!-- Перемикач стану: або результати, або інструкція -->
+
+
   @if (downloadInfo) {
-    <div class="results-container">
-      <h3>Результат:</h3>
-      <p>{{ downloadInfo.title }}</p>
-    </div>
-  } @else {
-    <!-- НОВИЙ БЛОК: Інформаційна панель -->
-    <div class="info-container">
-      <h2>Як це працює?</h2>
-      <ol class="steps-list">
-        <li>Скопіюйте посилання на відео з однієї з платформ.</li>
-        <li>Вставте посилання у поле вище.</li>
-        <li>Натисніть кнопку "Завантажити"!</li>
-      </ol>
-      <div class="supported-platforms">
-        <p>Підтримувані платформи:</p>
-        <!-- Пізніше тут можна буде вставити справжні іконки -->
+  <div class="results-container">
+    <h3>Результат:</h3>
+    <p>{{ downloadInfo.title }}</p>
+  </div>
+  }
+  @if (isInfoVisible) {
+  <div class="info-container" @slideInOut>
+    <h2>Як це працює?</h2>
+    <ol class="steps-list">
+      <li>Скопіюйте посилання на відео з однієї з платформ.</li>
+      <li>Вставте посилання у поле вище.</li>
+      <li>Натисніть кнопку "Завантажити"!</li>
+    </ol>
+    <div class="supported-platforms">
+      <p>Підтримувані платформи:</p>
+      <div class="platforms-container">
         <span>YouTube</span>
         <span>TikTok</span>
         <span>Instagram</span>
       </div>
     </div>
+  </div>
   }
 </div>

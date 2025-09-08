@@ -1,15 +1,35 @@
 /* src/styles/_base.scss */
-
 @use 'variables' as *;
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  // Використовуємо CSS-змінні
-  background-color: var(--primary-bg-color);
   font-family: $primary-font;
   color: var(--primary-text-color);
-  // Плавний перехід кольору при зміні теми
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+body {
+  // --- ОСНОВНІ ЗМІНИ ТУТ ---
+
+  // 1. Встановлюємо наше зображення як фон
+  background-image: url('../assets/images/background.jpg');
+
+  background-size: cover; // Масштабувати, щоб покрити весь екран
+  background-position: center center; // Центрувати зображення
+  background-repeat: no-repeat; // Не повторювати зображення
+  background-attachment: fixed; // !! Дуже важливо: фон залишається на місці при скролі
+}
+
+
+body.dark-theme::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; // Розміщуємо затемнення між фоном і контентом
+  // Примітка: z-index не спрацює без position: absolute/relative
 }
