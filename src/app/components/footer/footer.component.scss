@@ -2,30 +2,30 @@
 @use 'mixins' as mix;
 
 .site-footer {
-  // Позиціонуємо футер аналогічно до хедера
-  position: fixed;
-  bottom: 20px;
-  left: 40px;
-  right: 40px;
+  // 1. Прибираємо позиціонування
+  // position: fixed; // ВИДАЛЕНО
+  // bottom: 20px;    // ВИДАЛЕНО
+  // left: 40px;      // ВИДАЛЕНО
+  // right: 40px;     // ВИДАЛЕНО
+  // z-index: 10;     // ВИДАЛЕНО
 
+  // 2. Встановлюємо автоматичні відступи, щоб він центрувався
+  width: 100%;
+  max-width: 900px; // Можна встановити максимальну ширину
+  margin: 0 auto;   // Центруємо
+  margin-top: auto; // !! ЦЕ КЛЮЧОВА ЗМІНА, див. пояснення нижче
+
+  // 3. Повертаємо стилі
   padding: 15px 30px;
   text-align: center;
   color: var(--primary-text-color);
   font-size: 14px;
-  z-index: 10;
-
-  // Застосовуємо ефект скла
   @include mix.glassmorphism-panel();
-}
 
-// ... існуючі стилі ...
-
-@media (max-width: 768px) {
-  .site-footer {
-    // Зменшуємо відступи для мобільних пристроїв
-    bottom: 10px;
-    left: 15px;
-    right: 15px;
-    padding: 10px 20px;
+  // Адаптив
+  @media (max-width: 768px) {
+    max-width: 100%; // На мобільних займає всю ширину
+    margin-top: 40px; // На мобільних можна додати фіксований відступ
+    border-radius: 0; // На мобільних можна прибрати скруглення
   }
 }

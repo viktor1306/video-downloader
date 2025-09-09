@@ -12,14 +12,60 @@
     <button class="download-button" (click)="onDownloadClick()">Завантажити</button>
   </div>
 
+  @if (isLoading) {
+  <div class="status-container">
+    <p>Аналізуємо посилання...</p>
+    <!-- Сюди можна додати гарний CSS-спінер -->
+  </div>
+  }
 
+  <!-- Показуємо помилку -->
+  @if (errorMessage) {
+  <div class="status-container error">
+    <p>{{ errorMessage }}</p>
+  </div>
+  }
 
   @if (downloadInfo) {
   <div class="results-container">
-    <h3>Результат:</h3>
-    <p>{{ downloadInfo.title }}</p>
+    <img class="thumbnail" [src]="downloadInfo.thumbnail" alt="Video thumbnail">
+    <h3 class="video-title">{{ downloadInfo.title }}</h3>
+
+    <!-- Формати зі звуком -->
+    <h4>Відео зі звуком:</h4>
+    <div class="formats-grid">
+      @for (format of downloadInfo.formats.combined; track format.url) {
+      <div class="format-item">
+        <span class="quality">{{ format.qualityLabel }}</span>
+        <span class="size">{{ formatBytes(format.contentLength) }}</span>
+        <a class="download-btn"
+          [href]="apiUrl + '/api/downloadVideo?videoUrl=' + encodeURIComponent(format.url) + '&title=' + encodeURIComponent(downloadInfo.title) + '&container=' + format.container">
+          Завантажити
+        </a>
+      </div>
+      }
+    </div>
+
+    <!-- Формати без звуку -->
+    @if (downloadInfo.formats.videoOnly.length > 0) {
+    <h4 class="warning">Відео БЕЗ звуку (вища якість):</h4>
+    <div class="formats-grid">
+      @for (format of downloadInfo.formats.videoOnly; track format.url) {
+      <div class="format-item">
+        <span class="quality">{{ format.qualityLabel }}</span>
+        <span class="size">{{ formatBytes(format.contentLength) }}</span>
+        <a class="download-btn"
+          [href]="apiUrl + '/api/downloadVideo?videoUrl=' + encodeURIComponent(format.url) + '&title=' + encodeURIComponent(downloadInfo.title) + '&container=' + format.container">
+          Завантажити
+        </a>
+      </div>
+      }
+    </div>
+    }
   </div>
   }
+
+  <!-- ПАНЕЛЬ ІНФОРМАЦІЇ -->
   @if (isInfoVisible) {
   <div class="info-container" @slideInOut>
     <h2>Як це працює?</h2>
